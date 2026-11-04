@@ -1,17 +1,19 @@
 /** @type {import('tailwindcss').Config} */
+const c = (name) => `rgb(var(--rgb-${name}) / <alpha-value>)`
+
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        dark: 'var(--color-dark)',
+        dark: c('dark'),
         amber: {
-          DEFAULT: 'var(--color-amber)',
+          DEFAULT: c('amber'),
           // ONLY for small amber-coloured text on cream. Never use `text-amber` on cream.
-          deep: 'var(--color-amber-deep)',
+          deep: c('amber-deep'),
         },
-        cream: 'var(--color-cream)',
-        'pale-amber': 'var(--color-pale-amber)',
+        cream: c('cream'),
+        'pale-amber': c('pale-amber'),
       },
       fontFamily: {
         heading: ['"Cormorant Garamond"', 'Georgia', 'serif'],
@@ -27,6 +29,7 @@ export default {
         'space-6': 'var(--space-6)',
         'space-7': 'var(--space-7)',
         'space-8': 'var(--space-8)',
+        'space-9': 'var(--space-9)',
       },
       borderRadius: {
         sm: 'var(--radius-sm)',
@@ -35,9 +38,13 @@ export default {
       },
       boxShadow: {
         soft: 'var(--shadow-soft)',
+        lift: 'var(--shadow-lift)',
       },
       letterSpacing: {
         brand: '0.32em',
+      },
+      maxWidth: {
+        site: '72rem',
       },
     },
   },

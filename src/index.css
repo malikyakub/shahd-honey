@@ -3,12 +3,18 @@
 @tailwind utilities;
 
 :root {
-  /* Brand colours */
+  /* Brand colours (hex for reference, RGB channels used by Tailwind for opacity) */
   --color-dark: #101010;        /* panels, body text on cream */
   --color-amber: #f9a11b;       /* buttons, badges, accents, headings on dark — never text on cream */
   --color-cream: #fbf3e0;       /* main background, text on dark */
   --color-pale-amber: #f1dfb0;  /* faint patterns, dividers, hover only */
   --color-amber-deep: #8f5300;  /* ONLY small amber-coloured text on cream */
+
+  --rgb-dark: 16 16 16;
+  --rgb-amber: 249 161 27;
+  --rgb-cream: 251 243 224;
+  --rgb-pale-amber: 241 223 176;
+  --rgb-amber-deep: 143 83 0;
 
   /* Spacing scale (4px base) */
   --space-1: 0.25rem;  /* 4  */
@@ -19,12 +25,14 @@
   --space-6: 2rem;     /* 32 */
   --space-7: 3rem;     /* 48 */
   --space-8: 4rem;     /* 64 */
+  --space-9: 6rem;     /* 96 */
 
   /* Radius & shadow */
   --radius-sm: 6px;
   --radius: 8px;
   --radius-lg: 10px;
   --shadow-soft: 0 1px 2px rgb(16 16 16 / 0.06), 0 8px 24px -6px rgb(16 16 16 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(16 16 16 / 0.06), 0 18px 36px -10px rgb(16 16 16 / 0.22);
 
   --font-heading: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Montserrat', system-ui, sans-serif;
@@ -43,4 +51,62 @@
   h1, h2, h3, h4 {
     @apply font-heading;
   }
+  /* Cormorant's default old-style figures make "1 L" read as "ı L" */
+  h1, h2, h3, h4, .font-heading {
+    font-variant-numeric: lining-nums;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-space-5 sm:px-space-6;
+  }
+  .btn-amber {
+    @apply inline-flex items-center justify-center gap-space-2 rounded bg-amber px-space-5 py-space-3 font-body text-sm font-semibold uppercase tracking-[0.1em] sm:px-space-6 sm:tracking-[0.14em] text-dark shadow-soft transition duration-200 hover:-translate-y-0.5 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-space-2 rounded bg-dark px-space-5 py-space-3 font-body text-sm font-semibold uppercase tracking-[0.1em] sm:px-space-6 sm:tracking-[0.14em] text-cream transition duration-200 hover:-translate-y-0.5 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2;
+  }
+  .eyebrow {
+    @apply font-body text-[0.7rem] font-semibold uppercase tracking-[0.28em];
+  }
+  .field-input {
+    @apply w-full rounded border border-dark/15 bg-white/70 px-space-4 py-space-3 font-body text-sm text-dark placeholder:text-dark/40 transition focus:border-dark/40 focus:outline-none focus:ring-2 focus:ring-amber/60;
+  }
+}
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Motion — CSS only */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes bump {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.animate-bump {
+  animation: bump 0.4s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-fade-in {
+  animation: fade-in 0.6s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-bump, .animate-fade-in { animation: none; }
 }
