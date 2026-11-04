@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand colours */
+  --color-dark: #101010;        /* panels, body text on cream */
+  --color-amber: #f9a11b;       /* buttons, badges, accents, headings on dark — never text on cream */
+  --color-cream: #fbf3e0;       /* main background, text on dark */
+  --color-pale-amber: #f1dfb0;  /* faint patterns, dividers, hover only */
+  --color-amber-deep: #8f5300;  /* ONLY small amber-coloured text on cream */
+
+  /* Spacing scale (4px base) */
+  --space-1: 0.25rem;  /* 4  */
+  --space-2: 0.5rem;   /* 8  */
+  --space-3: 0.75rem;  /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+
+  /* Radius & shadow */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 10px;
+  --shadow-soft: 0 1px 2px rgb(16 16 16 / 0.06), 0 8px 24px -6px rgb(16 16 16 / 0.12);
+
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-cream font-body text-dark;
+    margin: 0;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+}
