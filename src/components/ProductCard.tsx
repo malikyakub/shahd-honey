@@ -42,11 +42,11 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       to={`/product/${product.id}`}
-      className={`group flex h-full flex-col overflow-hidden rounded-lg bg-white/60 shadow-soft ring-1 ring-dark/5 transition duration-300 hover:-translate-y-1 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber ${
+      className={`group flex h-full flex-col overflow-hidden rounded-lg bg-cream shadow-soft ring-1 ring-dark/5 transition duration-300 hover:-translate-y-1 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber ${
         !inStock ? 'opacity-90' : ''
       }`}
     >
-      <div className="relative aspect-square overflow-hidden">
+      <div className="relative aspect-square overflow-hidden bg-cream">
         <div className={`h-full w-full transition duration-500 group-hover:scale-[1.03] ${!inStock ? 'grayscale-[30%]' : ''}`}>
           <ProductImage product={product} />
         </div>

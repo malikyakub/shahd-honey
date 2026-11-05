@@ -39,7 +39,7 @@ export function Cart() {
             const name = productName(product, lang)
             return (
               <li key={product.id} className="flex gap-space-4 py-space-5">
-                <Link to={`/product/${product.id}`} className="h-24 w-24 shrink-0 overflow-hidden rounded sm:h-28 sm:w-28">
+                <Link to={`/product/${product.id}`} className="h-24 w-24 shrink-0 overflow-hidden rounded bg-cream border border-dark/5 sm:h-28 sm:w-28">
                   <ProductImage product={product} compact />
                 </Link>
                 <div className="flex min-w-0 flex-1 flex-col">

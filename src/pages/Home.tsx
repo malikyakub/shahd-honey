@@ -18,17 +18,24 @@ export function Home() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-dark text-cream">
-        <Honeycomb className="opacity-[0.05]" />
-        <div className="container-site relative grid items-center gap-space-6 pb-space-7 pt-space-7 md:grid-cols-2 md:gap-space-8 md:py-space-9">
-          <div className="animate-fade-in text-center md:text-left">
+      {/* HERO — hero.webp fills the section; text sits on the dark left */}
+      <section className="relative min-h-[480px] overflow-hidden bg-[#0a0806] text-cream md:min-h-[600px] lg:min-h-[680px]">
+        {/* Background image: full bleed, right-aligned so the bottle stays visible */}
+        <HeroImage
+          alt="Shahd Honey 1 L"
+          className="absolute inset-0 h-full w-full object-cover object-right"
+        />
+        {/* Gradient: darkens the left half so text is legible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0806] via-[#0a0806]/85 to-[#0a0806]/20 md:to-transparent" />
+        {/* Content — full-width container, text restricted to left half on desktop */}
+        <div className="container-site relative flex h-full min-h-[480px] items-center py-16 md:min-h-[600px] md:py-20 lg:min-h-[680px]">
+          <div className="animate-fade-in w-full md:max-w-[52%]">
             <p className="eyebrow text-amber">{t.home.eyebrow}</p>
-            <h1 className="mt-space-4 font-heading text-[clamp(2.75rem,9vw,5rem)] font-medium leading-[1.02] text-cream">
+            <h1 className="mt-space-4 font-heading text-[clamp(2.6rem,8vw,5rem)] font-medium leading-[1.02] text-cream">
               {t.home.headline}
             </h1>
             <p className="mt-space-4 font-heading text-xl italic text-cream/80 sm:text-2xl">{t.tagline}</p>
-            <div className="mt-space-7 flex flex-col items-center gap-space-4 sm:flex-row md:justify-start">
+            <div className="mt-space-7 flex flex-col items-start gap-space-4 sm:flex-row">
               <Link to="/shop" className="btn-amber w-full sm:w-auto">
                 {t.home.shopNow} <ArrowRight size={16} />
               </Link>
@@ -40,12 +47,10 @@ export function Home() {
               </a>
             </div>
           </div>
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[15rem] sm:max-w-sm md:max-w-md">
-            <HeroImage alt={brand.name} className="h-full w-full" />
-            <Starburst className="absolute -right-2 top-[6%] h-20 w-20 rotate-12 drop-shadow-lg sm:h-24 sm:w-24 md:-right-4" />
-          </div>
         </div>
       </section>
+
+
 
       {/* TRUST STRIP */}
       <section className="border-b border-pale-amber bg-cream">
@@ -109,8 +114,8 @@ export function Home() {
       {/* GIFT BOX BANNER */}
       <section className="bg-cream py-space-8 md:py-space-9">
         <div className="container-site">
-          <Reveal className="grid overflow-hidden rounded-lg bg-white/60 shadow-soft ring-1 ring-dark/5 md:grid-cols-2">
-            <div className="aspect-[4/3] md:aspect-auto">
+          <Reveal className="grid overflow-hidden rounded-lg bg-cream shadow-soft ring-1 ring-dark/5 md:grid-cols-2">
+            <div className="aspect-[4/3] md:aspect-auto bg-cream">
               <ProductImage product={giftBox} large />
             </div>
             <div className="flex flex-col justify-center gap-space-4 p-space-6 sm:p-space-7">

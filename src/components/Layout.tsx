@@ -9,12 +9,16 @@ import { Honeycomb } from './Decor'
 
 function Wordmark({ className = '' }: { className?: string }) {
   return (
-    <span className={`inline-flex flex-col leading-none ${className}`}>
-      <span className="font-heading text-[1.75rem] font-medium tracking-wide text-cream sm:text-3xl">{brand.wordmark}</span>
-      <span className="mt-[2px] pl-[0.32em] font-body text-[0.5rem] font-semibold uppercase tracking-brand text-amber">Honey</span>
-    </span>
+    <img
+      src="/light.svg"
+      alt="Shahd Honey"
+      width={160}
+      height={44}
+      className={`h-9 w-auto select-none ${className}`}
+    />
   )
 }
+
 
 function Nav({ className = '' }: { className?: string }) {
   const { t } = useLang()

@@ -22,12 +22,10 @@ export function Receipt({ order, ref }: { order: Order; ref: Ref<HTMLDivElement>
       {/* Header */}
       <div className="relative bg-dark px-space-6 py-space-6 text-cream">
         <div className="flex items-start justify-between gap-space-4">
-          <div className="leading-none">
-            <p className="font-heading text-4xl font-medium tracking-wide">{brand.wordmark}</p>
-            <p className="mt-1 pl-[0.32em] font-body text-[0.55rem] font-semibold uppercase tracking-brand text-amber">Honey</p>
-          </div>
+          <img src="/light.svg" alt="Shahd Honey" width={160} height={44} className="h-10 w-auto" />
           <Starburst className="h-16 w-16 shrink-0" />
         </div>
+
         <p className="mt-space-4 font-heading text-base italic text-cream/75">{t.tagline}</p>
       </div>
 

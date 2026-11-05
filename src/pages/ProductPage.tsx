@@ -63,7 +63,7 @@ function ProductDetail({ id }: { id: string | undefined }) {
         </Link>
 
         <div className="mt-space-5 grid gap-space-6 md:grid-cols-2 md:gap-space-8">
-          <div className="animate-fade-in relative aspect-square overflow-hidden rounded-lg shadow-soft ring-1 ring-dark/5 md:sticky md:top-28 md:self-start">
+          <div className="animate-fade-in relative aspect-square overflow-hidden rounded-lg bg-cream shadow-soft ring-1 ring-dark/5 md:sticky md:top-28 md:self-start">
             <ProductImage product={product} large />
             <Starburst className="absolute bottom-space-4 right-space-4 h-16 w-16 sm:h-20 sm:w-20" />
           </div>
@@ -105,11 +105,14 @@ function ProductDetail({ id }: { id: string | undefined }) {
                         to={`/product/${fid}`}
                         replace
                         aria-current={active ? 'page' : undefined}
-                        className={`min-w-[4.5rem] rounded border px-space-4 py-space-3 text-center font-body text-sm font-semibold transition ${
-                          active ? 'border-dark bg-dark text-cream' : 'border-dark/20 text-dark hover:border-dark/50 hover:bg-pale-amber/60'
+                        className={`inline-flex items-center gap-2 rounded border px-3 py-2 text-center font-body text-xs font-semibold transition ${
+                          active ? 'border-dark bg-dark text-cream shadow-sm' : 'border-dark/20 text-dark hover:border-dark/50 hover:bg-pale-amber/60'
                         }`}
                       >
-                        {p.sizeLabel}
+                        <span className="h-6 w-6 shrink-0 overflow-hidden rounded bg-cream flex items-center justify-center">
+                          <ProductImage product={p} compact />
+                        </span>
+                        <span>{p.sizeLabel}</span>
                       </Link>
                     )
                   })}

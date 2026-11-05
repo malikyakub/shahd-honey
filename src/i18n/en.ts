@@ -233,6 +233,7 @@ export const en: Dictionary = {
       paymentMethod: 'Payment Method',
       orderSummary: 'Order Summary',
       downloadReceipt: 'Download receipt (PNG)',
+      clickToViewReceipt: 'Click to view receipt',
       contactWhatsApp: 'Chat on WhatsApp',
       whatsappMessage: (name: string, id: string, status: string, total: string) =>
         `Hello ${name}, we are contacting you regarding your Shahd Honey order (${id}). Order status: ${status}. Total: ${total}. Thank you!`,

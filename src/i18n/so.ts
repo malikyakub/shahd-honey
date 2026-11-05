@@ -232,6 +232,7 @@ export const so = {
       paymentMethod: 'Habka Lacag Bixinta',
       orderSummary: 'Soo Koobidda Qiimaha',
       downloadReceipt: 'Soo deji rasiidka (PNG)',
+      clickToViewReceipt: 'Guji si aad rasiidka u aragto',
       contactWhatsApp: 'Kala hadal WhatsApp',
       whatsappMessage: (name: string, id: string, status: string, total: string) =>
         `Asc ${name}, waxaan kaala soo xiriiraynaa dalabkaaga Shahd Honey (${id}). Xaaladda dalabkaaga: ${status}. Wadarta guud: ${total}. Mahadsanid!`,
