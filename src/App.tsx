@@ -9,6 +9,11 @@ import { Cart } from './pages/Cart'
 import { Checkout } from './pages/Checkout'
 import { OrderConfirmation } from './pages/OrderConfirmation'
 import { NotFound } from './pages/NotFound'
+import { AdminGuard } from './components/admin/AdminGuard'
+import { AdminDashboard } from './pages/admin/AdminDashboard'
+import { AdminOrders } from './pages/admin/AdminOrders'
+import { AdminOrderDetail } from './pages/admin/AdminOrderDetail'
+import { AdminProducts } from './pages/admin/AdminProducts'
 
 export default function App() {
   return (
@@ -16,6 +21,15 @@ export default function App() {
       <CartProvider>
         <BrowserRouter>
           <Routes>
+            {/* Admin Section */}
+            <Route path="/admin" element={<AdminGuard />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="orders" element={<AdminOrders />} />
+              <Route path="orders/:id" element={<AdminOrderDetail />} />
+              <Route path="products" element={<AdminProducts />} />
+            </Route>
+
+            {/* Public Storefront */}
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/shop" element={<Shop />} />

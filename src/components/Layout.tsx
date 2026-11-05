@@ -97,8 +97,11 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="container-site relative border-t border-cream/10 py-space-5 font-body text-xs text-cream/50">
-        © {YEAR} {brand.name}. {t.footer.rights}
+      <div className="container-site relative flex flex-wrap items-center justify-between gap-space-2 border-t border-cream/10 py-space-5 font-body text-xs text-cream/50">
+        <span>© {YEAR} {brand.name}. {t.footer.rights}</span>
+        <Link to="/admin" className="text-[0.7rem] text-cream/30 transition hover:text-cream/70">
+          Admin
+        </Link>
       </div>
     </footer>
   )

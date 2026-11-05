@@ -108,6 +108,7 @@ export function Checkout() {
       },
       payment: form.payment,
       status: 'pending',
+      statusHistory: [{ status: 'pending', timestamp: now.toISOString() }],
     }
     saveOrder(order)
     navigate(`/order/${order.id}`, { replace: true })

@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 import { getProduct } from '../data/products'
 import { CartContext, type CartItem, type CartLine } from './cart'
 
+import { isProductInStock } from '../lib/stock'
+
 const STORAGE_KEY = 'shahd_cart'
 const MAX_QTY = 99
 
@@ -32,6 +34,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items])
 
   const add = useCallback((id: string, qty = 1) => {
+    if (!isProductInStock(id)) return
     setItems((prev) => {
       const existing = prev.find((i) => i.id === id)
       if (existing) return prev.map((i) => (i.id === id ? { ...i, qty: clamp(i.qty + qty) } : i))

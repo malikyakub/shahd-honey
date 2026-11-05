@@ -5,6 +5,7 @@ import { getProduct, sizeFamilies } from '../data/products'
 import { useCart } from '../context/cart'
 import { useLang } from '../i18n/useLang'
 import { money, pricePer100, productDescription, productName } from '../lib/format'
+import { useStock } from '../lib/stock'
 import { ProductImage } from '../components/ProductImage'
 import { ProductBadge } from '../components/ProductCard'
 import { QuantityPicker } from '../components/QuantityPicker'
@@ -21,6 +22,7 @@ function ProductDetail({ id }: { id: string | undefined }) {
   const product = getProduct(id)
   const { t, lang } = useLang()
   const { add } = useCart()
+  const { isInStock } = useStock()
   const [qty, setQty] = useState(1)
   const [added, setAdded] = useState(false)
 
@@ -32,11 +34,13 @@ function ProductDetail({ id }: { id: string | undefined }) {
 
   if (!product) return <NotFound message={t.product.notFound} />
 
+  const inStock = isInStock(product.id)
   const name = productName(product, lang)
   const per100 = pricePer100(product)
   const family = product.category === 'bottle' || product.category === 'jar' ? sizeFamilies[product.category] : null
 
   const handleAdd = () => {
+    if (!inStock) return
     add(product.id, qty)
     setAdded(true)
   }
@@ -65,7 +69,14 @@ function ProductDetail({ id }: { id: string | undefined }) {
           </div>
 
           <div className="animate-fade-in">
-            <ProductBadge product={product} />
+            <div className="flex items-center gap-space-2">
+              <ProductBadge product={product} isOutOfStock={!inStock} />
+              {!inStock && (
+                <span className="font-body text-xs font-semibold uppercase tracking-wider text-red-800">
+                  {t.badges.outOfStock}
+                </span>
+              )}
+            </div>
             <h1 className="mt-space-3 font-heading text-4xl font-medium leading-tight text-dark sm:text-5xl">{name}</h1>
             <p className="mt-space-2 font-body text-xs font-medium uppercase tracking-[0.16em] text-dark/55">
               {t.packs[product.pack]}
@@ -113,8 +124,13 @@ function ProductDetail({ id }: { id: string | undefined }) {
             {/* Quantity + add (desktop/tablet) */}
             <div className="mt-space-6 hidden items-center gap-space-4 md:flex">
               <QuantityPicker value={qty} onChange={setQty} />
-              <button type="button" onClick={handleAdd} className="btn-amber flex-1">
-                {added ? t.product.added : t.product.addToCart}
+              <button
+                type="button"
+                onClick={handleAdd}
+                disabled={!inStock}
+                className="btn-amber flex-1 disabled:opacity-50 disabled:pointer-events-none"
+              >
+                {!inStock ? t.product.outOfStock : added ? t.product.added : t.product.addToCart}
               </button>
             </div>
             {added && (
@@ -156,7 +172,11 @@ function ProductDetail({ id }: { id: string | undefined }) {
             <p className="truncate font-heading text-base text-cream">{name}</p>
             <p className="font-body text-sm font-semibold text-amber">{money(product.priceUSD * qty)}</p>
           </div>
-          {added ? (
+          {!inStock ? (
+            <button type="button" disabled className="btn-amber px-space-5 opacity-50 pointer-events-none">
+              {t.product.outOfStock}
+            </button>
+          ) : added ? (
             <Link to="/cart" className="btn-amber px-space-5">
               {t.product.viewCart}
             </Link>
