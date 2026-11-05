@@ -34,6 +34,7 @@ export function AdminOrderDetail() {
   const [downloadError, setDownloadError] = useState(false)
   const [receiptModalOpen, setReceiptModalOpen] = useState(false)
   const receiptRef = useRef<HTMLDivElement>(null)
+  const exportReceiptRef = useRef<HTMLDivElement>(null)
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -44,7 +45,6 @@ export function AdminOrderDetail() {
     }
     return () => { document.body.style.overflow = '' }
   }, [receiptModalOpen])
-
 
   if (!order) {
     return <NotFound message={t.order.notFound} />
@@ -64,11 +64,12 @@ export function AdminOrderDetail() {
   }
 
   const handleDownloadReceipt = async () => {
-    if (!receiptRef.current) return
+    const target = exportReceiptRef.current || receiptRef.current
+    if (!target) return
     setDownloading(true)
     setDownloadError(false)
     try {
-      const dataUrl = await toPng(receiptRef.current, {
+      const dataUrl = await toPng(target, {
         pixelRatio: 2,
         cacheBust: true,
         backgroundColor: '#FBF3E0',
@@ -204,7 +205,7 @@ export function AdminOrderDetail() {
         </div>
 
         {/* Cancel Status visually separate with muted red #B3261E */}
-        <div className="pt-2 border-t border-dark/10 flex items-center justify-between">
+        <div className="pt-2 border-t border-dark/10 flex flex-col gap-2 xs:flex-row xs:items-center xs:justify-between">
           <span className="font-body text-xs text-dark/60">
             {order.status === 'cancelled' ? t.admin.status.cancelled : 'Need to cancel this order?'}
           </span>
@@ -300,12 +301,14 @@ export function AdminOrderDetail() {
             </div>
           </div>
 
-          {/* Ordered Items Table */}
-          <div className="rounded-[8px] bg-white/70 p-5 shadow-soft ring-1 ring-dark/5">
+          {/* Ordered Items: Desktop Table View + Mobile Cards View */}
+          <div className="rounded-[8px] bg-white/70 p-4 sm:p-5 shadow-soft ring-1 ring-dark/5">
             <h3 className="font-heading text-xl font-medium text-dark pb-3 border-b border-dark/10">
               {t.admin.orderDetails.orderedItems} ({order.items.reduce((s, i) => s + i.qty, 0)})
             </h3>
-            <div className="mt-3 overflow-x-auto">
+
+            {/* Desktop Table View (>= 768px) */}
+            <div className="hidden md:block mt-3 overflow-x-auto">
               <table className="w-full text-left font-body text-xs">
                 <thead className="border-b border-dark/10 text-dark/60 uppercase tracking-wider text-[0.68rem]">
                   <tr>
@@ -331,6 +334,21 @@ export function AdminOrderDetail() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile Cards View (< 768px) */}
+            <div className="md:hidden divide-y divide-dark/10 mt-1">
+              {order.items.map((item) => (
+                <div key={item.id} className="py-3 flex items-start justify-between gap-3 text-xs">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-dark break-words">{lang === 'so' ? item.name_so : item.name}</p>
+                    <p className="text-[0.68rem] text-dark/50 mt-0.5">{money(item.unitPrice)} · Qty: {item.qty}</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="font-semibold text-dark text-sm">{money(item.unitPrice * item.qty)}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -410,7 +428,7 @@ export function AdminOrderDetail() {
               type="button"
               onClick={handleDownloadReceipt}
               disabled={downloading}
-              className="inline-flex min-h-[40px] items-center gap-2 rounded-[8px] bg-amber px-4 py-2 font-body text-xs font-semibold text-dark shadow-sm transition hover:bg-amber/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[8px] bg-amber px-4 py-2 font-body text-xs font-semibold text-dark shadow-sm transition hover:bg-amber/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
             >
               <Download size={16} strokeWidth={1.75} />
               <span>{downloading ? t.order.downloading : t.admin.orderDetails.downloadReceipt}</span>
@@ -419,9 +437,9 @@ export function AdminOrderDetail() {
               type="button"
               onClick={() => setReceiptModalOpen(false)}
               aria-label="Close"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-dark shadow-sm transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-dark shadow-sm transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
             >
-              <X size={18} strokeWidth={1.75} />
+              <X size={20} strokeWidth={1.75} />
             </button>
           </div>
           {/* Receipt */}
@@ -429,6 +447,11 @@ export function AdminOrderDetail() {
         </div>
       </div>
     )}
+
+    {/* Offscreen fixed-size receipt (420px) for standard PNG export independent of viewport width */}
+    <div style={{ position: 'fixed', left: '-9999px', top: 0, width: '420px', pointerEvents: 'none' }} aria-hidden="true">
+      <Receipt ref={exportReceiptRef} order={order} />
+    </div>
     </>
   )
 }

@@ -48,7 +48,7 @@ export function Shop() {
           })}
         </div>
 
-        <div className="mt-space-6 grid grid-cols-2 gap-space-4 md:grid-cols-4 md:gap-space-5">
+        <div className="mt-space-6 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {list.map((p, i) => (
             <Reveal key={`${filter}-${p.id}`} delay={(i % 4) * 70}>
               <ProductCard product={p} />

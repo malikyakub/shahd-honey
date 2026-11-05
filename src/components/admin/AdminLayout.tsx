@@ -23,7 +23,7 @@ export function AdminLayout({ onLogout }: { onLogout: () => void }) {
   return (
     <div className="flex min-h-[100svh] flex-col md:flex-row bg-cream text-dark">
       {/* DESKTOP SIDEBAR (~256px wide, dark #101010) */}
-      <aside className="hidden md:flex w-64 flex-col justify-between border-r border-cream/10 bg-dark text-cream shrink-0 sticky top-0 h-screen z-30">
+      <aside className="hidden md:flex w-64 flex-col justify-between border-r border-cream/10 bg-dark text-cream shrink-0 sticky top-0 h-screen overflow-y-auto z-30">
         <div>
           {/* Top Wordmark with 24px (p-6) padding & thin divider */}
           <div className="p-6 border-b border-cream/10">
@@ -80,32 +80,32 @@ export function AdminLayout({ onLogout }: { onLogout: () => void }) {
         </div>
       </aside>
 
-      {/* MOBILE STICKY TOP BAR (dark #101010) */}
-      <header className="md:hidden sticky top-0 z-40 border-b border-cream/10 bg-dark text-cream">
-        <div className="flex h-14 items-center justify-between px-4">
-          <Link to="/admin" className="leading-none focus:outline-none">
-            <img src="/light.svg" alt="Shahd Honey" width={120} height={33} className="h-7 w-auto" />
+      {/* MOBILE STICKY TOP BAR (dark #101010) with safe area */}
+      <header className="md:hidden sticky top-0 z-40 border-b border-cream/10 bg-dark text-cream pt-[env(safe-area-inset-top,0px)]">
+        <div className="flex h-14 items-center justify-between px-2.5 xs:px-4">
+          <Link to="/admin" className="leading-none focus:outline-none shrink-0 flex items-center min-h-[44px]">
+            <img src="/light.svg" alt="Shahd Honey" width={120} height={33} className="h-6 xs:h-7 w-auto" />
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 xs:gap-2">
             {/* View store icon-button: 44x44 touch target */}
             <Link
               to="/"
               aria-label={t.admin.nav.viewStore}
-              className="flex h-11 w-11 items-center justify-center rounded-[8px] border border-cream/15 text-cream/80 hover:bg-cream/10 hover:text-cream transition focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] border border-cream/15 text-cream/80 hover:bg-cream/10 hover:text-cream transition focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
             >
               <Store size={18} strokeWidth={1.75} />
             </Link>
 
             {/* SO | EN pill */}
-            <LangToggle variant="pill" />
+            <LangToggle variant="pill" className="scale-85 xs:scale-100 origin-right" />
 
             {/* Logout icon-button: 44x44 touch target */}
             <button
               type="button"
               onClick={onLogout}
               aria-label={t.admin.nav.logout}
-              className="flex h-11 w-11 items-center justify-center rounded-[8px] border border-cream/20 text-cream/80 hover:bg-cream/10 hover:text-red-300 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[8px] border border-cream/20 text-cream/80 hover:bg-cream/10 hover:text-red-300 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
             >
               <LogOut size={18} strokeWidth={1.75} />
             </button>
@@ -116,7 +116,7 @@ export function AdminLayout({ onLogout }: { onLogout: () => void }) {
       {/* FIXED BOTTOM TAB BAR ON MOBILE (>=56px tall, dark #101010) */}
       <nav
         aria-label="Admin tabs"
-        className="md:hidden fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-cream/10 bg-dark text-cream pb-[env(safe-area-inset-bottom,0px)] shadow-lift"
+        className="md:hidden fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-cream/10 bg-dark text-cream pt-1 pb-[calc(0.25rem+env(safe-area-inset-bottom,0px))] shadow-lift"
       >
         <NavLink to="/admin" end className={mobileTabClass}>
           <LayoutDashboard size={18} strokeWidth={1.75} />
@@ -132,9 +132,9 @@ export function AdminLayout({ onLogout }: { onLogout: () => void }) {
         </NavLink>
       </nav>
 
-      {/* MAIN CONTENT AREA (p-4 on mobile, p-6 on desktop; extra bottom padding pb-24 on mobile) */}
-      <main className="flex-1 min-w-0 bg-cream pb-24 md:pb-8">
-        <div className="mx-auto w-full max-w-6xl p-4 md:p-6">
+      {/* MAIN CONTENT AREA (p-4 on mobile, p-6 on desktop; extra bottom padding pb-28 on mobile) */}
+      <main className="flex-1 min-w-0 bg-cream pb-28 md:pb-8">
+        <div className="mx-auto w-full max-w-6xl p-3.5 sm:p-4 md:p-6">
           <Outlet />
         </div>
       </main>

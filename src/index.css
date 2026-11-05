@@ -43,10 +43,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   body {
     @apply bg-cream font-body text-dark;
     margin: 0;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   h1, h2, h3, h4 {
     @apply font-heading;
@@ -59,19 +63,19 @@
 
 @layer components {
   .container-site {
-    @apply mx-auto w-full max-w-site px-space-5 sm:px-space-6;
+    @apply mx-auto w-full max-w-site px-4 sm:px-6;
   }
   .btn-amber {
-    @apply inline-flex items-center justify-center gap-space-2 rounded bg-amber px-space-5 py-space-3 font-body text-sm font-semibold uppercase tracking-[0.1em] sm:px-space-6 sm:tracking-[0.14em] text-dark shadow-soft transition duration-200 hover:-translate-y-0.5 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    @apply min-h-[44px] inline-flex items-center justify-center gap-space-2 rounded bg-amber px-space-5 py-space-3 font-body text-sm font-semibold uppercase tracking-[0.1em] sm:px-space-6 sm:tracking-[0.14em] text-dark shadow-soft transition duration-200 hover:-translate-y-0.5 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
   }
   .btn-dark {
-    @apply inline-flex items-center justify-center gap-space-2 rounded bg-dark px-space-5 py-space-3 font-body text-sm font-semibold uppercase tracking-[0.1em] sm:px-space-6 sm:tracking-[0.14em] text-cream transition duration-200 hover:-translate-y-0.5 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2;
+    @apply min-h-[44px] inline-flex items-center justify-center gap-space-2 rounded bg-dark px-space-5 py-space-3 font-body text-sm font-semibold uppercase tracking-[0.1em] sm:px-space-6 sm:tracking-[0.14em] text-cream transition duration-200 hover:-translate-y-0.5 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2;
   }
   .eyebrow {
     @apply font-body text-[0.7rem] font-semibold uppercase tracking-[0.28em];
   }
   .field-input {
-    @apply w-full rounded border border-dark/15 bg-white/70 px-space-4 py-space-3 font-body text-sm text-dark placeholder:text-dark/40 transition focus:border-dark/40 focus:outline-none focus:ring-2 focus:ring-amber/60;
+    @apply min-h-[44px] w-full rounded border border-dark/15 bg-white/70 px-4 py-2.5 font-body text-base text-dark placeholder:text-dark/40 transition focus:border-dark/40 focus:outline-none focus:ring-2 focus:ring-amber/60;
   }
 }
 

@@ -10,7 +10,7 @@ interface Props {
 
 export function QuantityPicker({ value, onChange, size = 'md', label }: Props) {
   const { t } = useLang()
-  const btn = size === 'sm' ? 'h-8 w-8' : 'h-11 w-11'
+  const btn = size === 'sm' ? 'h-11 w-11 sm:h-9 sm:w-9' : 'h-11 w-11'
   return (
     <div
       role="group"
@@ -22,7 +22,7 @@ export function QuantityPicker({ value, onChange, size = 'md', label }: Props) {
         onClick={() => onChange(Math.max(1, value - 1))}
         disabled={value <= 1}
         aria-label={t.product.decrease}
-        className={`${btn} inline-flex items-center justify-center text-dark transition hover:bg-pale-amber/60 disabled:opacity-30`}
+        className={`${btn} inline-flex items-center justify-center text-dark transition hover:bg-pale-amber/60 disabled:opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber`}
       >
         <Minus size={size === 'sm' ? 14 : 16} />
       </button>

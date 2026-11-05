@@ -14,16 +14,15 @@ function Wordmark({ className = '' }: { className?: string }) {
       alt="Shahd Honey"
       width={160}
       height={44}
-      className={`h-9 w-auto select-none ${className}`}
+      className={`h-5 xs:h-7 sm:h-9 w-auto select-none ${className}`}
     />
   )
 }
 
-
 function Nav({ className = '' }: { className?: string }) {
   const { t } = useLang()
   const link = ({ isActive }: { isActive: boolean }) =>
-    `relative py-space-2 font-body text-xs font-semibold uppercase tracking-[0.18em] transition-colors ${
+    `relative py-1 font-body text-[0.68rem] xs:text-xs font-semibold uppercase tracking-wider xs:tracking-[0.16em] transition-colors whitespace-nowrap ${
       isActive ? 'text-amber' : 'text-cream/75 hover:text-cream'
     }`
   return (
@@ -43,19 +42,19 @@ function Header() {
   const { count } = useCart()
   return (
     <header className="sticky top-0 z-40 border-b border-cream/10 bg-dark/95 text-cream backdrop-blur supports-[backdrop-filter]:bg-dark/85">
-      <div className="container-site flex h-16 items-center justify-between gap-space-4 sm:h-20">
-        <Link to="/" aria-label={brand.name} className="shrink-0">
+      <div className="container-site flex h-14 sm:h-16 md:h-20 items-center justify-between gap-1 xs:gap-2 sm:gap-4">
+        <Link to="/" aria-label={brand.name} className="shrink-0 flex items-center min-h-[44px]">
           <Wordmark />
         </Link>
-        <Nav className="hidden items-center gap-space-6 md:flex" />
-        <div className="flex items-center gap-space-2 sm:gap-space-4">
-          <LangToggle />
+        <Nav className="flex items-center gap-2 xs:gap-3 sm:gap-6 shrink-0" />
+        <div className="flex items-center gap-1 sm:gap-3 shrink-0">
+          <LangToggle variant="pill" className="scale-85 xs:scale-100 origin-right" />
           <Link
             to="/cart"
             aria-label={t.nav.openCart(count)}
-            className="relative inline-flex h-11 w-11 items-center justify-center rounded text-cream transition hover:text-amber focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
+            className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded text-cream transition hover:text-amber focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
           >
-            <ShoppingBag size={22} strokeWidth={1.6} />
+            <ShoppingBag size={20} strokeWidth={1.6} />
             {count > 0 && (
               <span
                 key={count}
@@ -67,8 +66,6 @@ function Header() {
           </Link>
         </div>
       </div>
-      {/* Mobile nav row */}
-      <Nav className="container-site flex items-center justify-center gap-space-7 border-t border-cream/10 md:hidden" />
     </header>
   )
 }
@@ -81,29 +78,39 @@ function Footer() {
     <footer className="relative overflow-hidden bg-dark text-cream">
       <Honeycomb className="opacity-[0.04]" />
       <div className="container-site relative grid gap-space-7 py-space-8 md:grid-cols-[1.4fr_1fr]">
-        <div>
-          <Wordmark />
+        <div className="min-w-0">
+          <Wordmark className="h-8 sm:h-9" />
           <p className="mt-space-4 max-w-xs font-heading text-xl italic text-cream/80">{t.tagline}</p>
         </div>
-        <div>
+        <div className="min-w-0">
           <p className="eyebrow text-amber">{t.footer.contact}</p>
-          <ul className="mt-space-4 space-y-space-3 font-body text-sm">
+          <ul className="mt-space-4 space-y-1 font-body text-sm">
             <li>
-              <a href={brand.whatsappLink} target="_blank" rel="noopener noreferrer" className="text-cream/80 transition hover:text-amber">
+              <a
+                href={brand.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center text-cream/80 transition hover:text-amber"
+              >
                 WhatsApp · {brand.whatsapp}
               </a>
             </li>
             <li>
-              <a href={brand.tiktokLink} target="_blank" rel="noopener noreferrer" className="text-cream/80 transition hover:text-amber">
+              <a
+                href={brand.tiktokLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-[44px] items-center text-cream/80 transition hover:text-amber"
+              >
                 TikTok · {brand.tiktok}
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <div className="container-site relative flex flex-wrap items-center justify-between gap-space-2 border-t border-cream/10 py-space-5 font-body text-xs text-cream/50">
-        <span>© {YEAR} {brand.name}. {t.footer.rights}</span>
-        <Link to="/admin" className="text-[0.7rem] text-cream/30 transition hover:text-cream/70">
+      <div className="container-site relative flex flex-wrap items-center justify-between gap-space-2 border-t border-cream/10 py-space-3 font-body text-xs text-cream/50">
+        <span className="min-w-0 break-words py-2">© {YEAR} {brand.name}. {t.footer.rights}</span>
+        <Link to="/admin" className="inline-flex min-h-[44px] items-center text-[0.7rem] text-cream/30 transition hover:text-cream/70">
           Admin
         </Link>
       </div>

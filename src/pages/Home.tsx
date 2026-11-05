@@ -28,20 +28,20 @@ export function Home() {
         {/* Gradient: darkens the left half so text is legible */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0806] via-[#0a0806]/85 to-[#0a0806]/20 md:to-transparent" />
         {/* Content — full-width container, text restricted to left half on desktop */}
-        <div className="container-site relative flex h-full min-h-[480px] items-center py-16 md:min-h-[600px] md:py-20 lg:min-h-[680px]">
-          <div className="animate-fade-in w-full md:max-w-[52%]">
+        <div className="container-site relative flex h-full min-h-[480px] items-center py-12 md:min-h-[600px] md:py-20 lg:min-h-[680px]">
+          <div className="animate-fade-in w-full md:max-w-[55%] lg:max-w-[50%]">
             <p className="eyebrow text-amber">{t.home.eyebrow}</p>
-            <h1 className="mt-space-4 font-heading text-[clamp(2.6rem,8vw,5rem)] font-medium leading-[1.02] text-cream">
+            <h1 className="mt-space-4 font-heading text-[clamp(2rem,7vw,4.5rem)] font-medium leading-[1.04] text-cream break-words">
               {t.home.headline}
             </h1>
-            <p className="mt-space-4 font-heading text-xl italic text-cream/80 sm:text-2xl">{t.tagline}</p>
-            <div className="mt-space-7 flex flex-col items-start gap-space-4 sm:flex-row">
-              <Link to="/shop" className="btn-amber w-full sm:w-auto">
+            <p className="mt-space-3 font-heading text-lg italic text-cream/80 sm:text-2xl">{t.tagline}</p>
+            <div className="mt-space-6 flex flex-col items-stretch xs:flex-row xs:items-center gap-3 sm:gap-space-4">
+              <Link to="/shop" className="btn-amber w-full xs:w-auto">
                 {t.home.shopNow} <ArrowRight size={16} />
               </Link>
               <a
                 href="#story"
-                className="font-body text-xs font-semibold uppercase tracking-[0.18em] text-cream/70 underline-offset-8 transition hover:text-cream hover:underline"
+                className="inline-flex min-h-[44px] items-center justify-center font-body text-xs font-semibold uppercase tracking-[0.18em] text-cream/70 underline-offset-8 transition hover:text-cream hover:underline"
               >
                 {t.home.ourStory}
               </a>
@@ -49,8 +49,6 @@ export function Home() {
           </div>
         </div>
       </section>
-
-
 
       {/* TRUST STRIP */}
       <section className="border-b border-pale-amber bg-cream">
@@ -68,21 +66,21 @@ export function Home() {
       </section>
 
       {/* FEATURED */}
-      <section className="bg-cream py-space-8 md:py-space-9">
+      <section className="bg-cream py-space-7 sm:py-space-8 md:py-space-9">
         <div className="container-site">
           <Reveal className="mb-space-6 flex flex-wrap items-end justify-between gap-space-4">
             <div>
               <p className="eyebrow text-amber-deep">{t.home.featuredEyebrow}</p>
-              <h2 className="mt-space-2 font-heading text-4xl font-medium text-dark sm:text-5xl">{t.home.featuredTitle}</h2>
+              <h2 className="mt-space-2 font-heading text-3xl font-medium text-dark sm:text-4xl md:text-5xl">{t.home.featuredTitle}</h2>
             </div>
             <Link
               to="/shop"
-              className="inline-flex items-center gap-space-2 font-body text-xs font-semibold uppercase tracking-[0.16em] text-dark underline-offset-8 hover:underline"
+              className="inline-flex min-h-[44px] items-center gap-space-2 font-body text-xs font-semibold uppercase tracking-[0.16em] text-dark underline-offset-8 hover:underline"
             >
               {t.home.viewAll} <ArrowRight size={14} />
             </Link>
           </Reveal>
-          <div className="grid grid-cols-2 gap-space-4 md:grid-cols-4 md:gap-space-5">
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {FEATURED.map((id, i) => (
               <Reveal key={id} delay={i * 80}>
                 <ProductCard product={getProduct(id)!} />

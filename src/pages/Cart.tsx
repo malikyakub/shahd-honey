@@ -30,36 +30,36 @@ export function Cart() {
   }
 
   return (
-    <section className="container-site py-space-7 sm:py-space-8">
-      <h1 className="font-heading text-5xl font-medium text-dark">{t.cart.title}</h1>
+    <section className="container-site py-space-5 sm:py-space-8">
+      <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-medium text-dark">{t.cart.title}</h1>
 
-      <div className="mt-space-6 grid gap-space-6 lg:grid-cols-[1fr_22rem] lg:gap-space-7">
+      <div className="mt-space-5 sm:mt-space-6 grid gap-space-6 lg:grid-cols-[1fr_22rem] lg:gap-space-7">
         <ul className="divide-y divide-pale-amber border-y border-pale-amber">
           {lines.map(({ product, qty, lineTotal }) => {
             const name = productName(product, lang)
             return (
-              <li key={product.id} className="flex gap-space-4 py-space-5">
-                <Link to={`/product/${product.id}`} className="h-24 w-24 shrink-0 overflow-hidden rounded bg-cream border border-dark/5 sm:h-28 sm:w-28">
+              <li key={product.id} className="flex gap-3 sm:gap-space-4 py-4 sm:py-space-5">
+                <Link to={`/product/${product.id}`} className="h-20 w-20 xs:h-24 xs:w-24 shrink-0 overflow-hidden rounded bg-cream border border-dark/5">
                   <ProductImage product={product} compact />
                 </Link>
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <div className="flex items-start justify-between gap-space-3">
+                  <div className="flex items-start justify-between gap-space-2">
                     <div className="min-w-0">
-                      <Link to={`/product/${product.id}`} className="font-heading text-lg font-semibold leading-snug text-dark hover:underline sm:text-xl">
+                      <Link to={`/product/${product.id}`} className="font-heading text-base sm:text-lg font-semibold leading-snug text-dark hover:underline break-words">
                         {name}
                       </Link>
                       <p className="mt-0.5 font-body text-xs text-dark/60">{money(product.priceUSD)}</p>
                     </div>
-                    <p className="shrink-0 font-body text-base font-semibold text-dark">{money(lineTotal)}</p>
+                    <p className="shrink-0 font-body text-sm sm:text-base font-semibold text-dark">{money(lineTotal)}</p>
                   </div>
-                  <div className="mt-auto flex items-center justify-between pt-space-3">
+                  <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-space-2">
                     <QuantityPicker value={qty} onChange={(n) => setQty(product.id, n)} size="sm" />
                     <button
                       type="button"
                       onClick={() => remove(product.id)}
-                      className="inline-flex items-center gap-space-1 rounded px-space-2 py-space-2 font-body text-xs font-medium text-dark/60 transition hover:text-dark"
+                      className="inline-flex min-h-[44px] items-center gap-1.5 rounded px-2.5 py-2 font-body text-xs font-medium text-dark/60 transition hover:text-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-amber"
                     >
-                      <Trash2 size={14} /> {t.cart.remove}
+                      <Trash2 size={16} /> <span>{t.cart.remove}</span>
                     </button>
                   </div>
                 </div>
@@ -68,11 +68,13 @@ export function Cart() {
           })}
         </ul>
 
-        <aside className="h-fit rounded-lg bg-white/60 p-space-5 shadow-soft ring-1 ring-dark/5 sm:p-space-6 lg:sticky lg:top-28">
+        <aside className="h-fit rounded-lg bg-white/60 p-4 sm:p-space-6 shadow-soft ring-1 ring-dark/5 lg:sticky lg:top-28">
           <div className="rounded bg-pale-amber/50 p-space-4">
-            <p className="flex items-start gap-space-2 font-body text-xs font-medium leading-relaxed text-dark">
-              <Truck size={16} className="mt-px shrink-0 text-amber-deep" />
-              {remaining > 0 ? t.cart.freeMore(money(remaining)) : t.cart.freeReached}
+            <p className="flex items-start gap-space-2 font-body text-xs font-medium leading-relaxed text-dark break-words">
+              <Truck size={16} className="mt-0.5 shrink-0 text-amber-deep" />
+              <span className="min-w-0 flex-1">
+                {remaining > 0 ? t.cart.freeMore(money(remaining)) : t.cart.freeReached}
+              </span>
             </p>
             <div
               className="mt-space-3 h-1.5 overflow-hidden rounded-full bg-dark/10"
@@ -94,7 +96,7 @@ export function Cart() {
           <Link to="/checkout" className="btn-amber mt-space-5 w-full">
             {t.cart.checkout} <ArrowRight size={16} />
           </Link>
-          <Link to="/shop" className="mt-space-4 block text-center font-body text-xs font-semibold uppercase tracking-[0.14em] text-dark/70 hover:text-dark">
+          <Link to="/shop" className="mt-space-4 flex min-h-[44px] items-center justify-center text-center font-body text-xs font-semibold uppercase tracking-[0.14em] text-dark/70 hover:text-dark">
             {t.cart.continue}
           </Link>
         </aside>

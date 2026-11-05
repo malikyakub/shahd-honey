@@ -53,22 +53,23 @@ function ProductDetail({ id }: { id: string | undefined }) {
   ]
 
   return (
-    <div className="bg-cream pb-28 md:pb-0">
-      <div className="container-site py-space-5 sm:py-space-6">
+    <div className="bg-cream pb-32 md:pb-0">
+      <div className="container-site py-space-4 sm:py-space-6">
         <Link
           to="/shop"
-          className="inline-flex items-center gap-space-2 font-body text-xs font-semibold uppercase tracking-[0.16em] text-dark/70 hover:text-dark"
+          className="inline-flex min-h-[44px] items-center gap-space-2 font-body text-xs font-semibold uppercase tracking-[0.16em] text-dark/70 hover:text-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-amber rounded"
         >
-          <ArrowLeft size={14} /> {t.product.back}
+          <ArrowLeft size={16} /> {t.product.back}
         </Link>
 
-        <div className="mt-space-5 grid gap-space-6 md:grid-cols-2 md:gap-space-8">
-          <div className="animate-fade-in relative aspect-square overflow-hidden rounded-lg bg-cream shadow-soft ring-1 ring-dark/5 md:sticky md:top-28 md:self-start">
+        <div className="mt-space-3 md:mt-space-5 grid gap-space-6 md:grid-cols-2 md:gap-space-8">
+          {/* Edge-to-edge image on mobile (<768px), rounded sticky card on desktop (>=768px) */}
+          <div className="animate-fade-in relative aspect-square overflow-hidden bg-cream shadow-soft md:rounded-lg md:ring-1 md:ring-dark/5 md:sticky md:top-28 md:self-start -mx-4 sm:-mx-6 md:mx-0 w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] md:w-full">
             <ProductImage product={product} large />
-            <Starburst className="absolute bottom-space-4 right-space-4 h-16 w-16 sm:h-20 sm:w-20" />
+            <Starburst className="absolute bottom-3 right-3 h-14 w-14 sm:bottom-4 sm:right-4 sm:h-20 sm:w-20" />
           </div>
 
-          <div className="animate-fade-in">
+          <div className="animate-fade-in min-w-0">
             <div className="flex items-center gap-space-2">
               <ProductBadge product={product} isOutOfStock={!inStock} />
               {!inStock && (
@@ -77,13 +78,13 @@ function ProductDetail({ id }: { id: string | undefined }) {
                 </span>
               )}
             </div>
-            <h1 className="mt-space-3 font-heading text-4xl font-medium leading-tight text-dark sm:text-5xl">{name}</h1>
+            <h1 className="mt-space-3 font-heading text-3xl font-medium leading-tight text-dark sm:text-4xl md:text-5xl break-words">{name}</h1>
             <p className="mt-space-2 font-body text-xs font-medium uppercase tracking-[0.16em] text-dark/55">
               {t.packs[product.pack]}
               {product.sizeLabel && ` · ${product.sizeLabel}`}
             </p>
 
-            <div className="mt-space-5 flex items-baseline gap-space-3">
+            <div className="mt-space-4 flex flex-wrap items-baseline gap-space-3">
               <span className="font-body text-3xl font-semibold text-dark">{money(product.priceUSD)}</span>
               {per100 !== null && (
                 <span className="font-body text-sm text-dark/60">
@@ -93,9 +94,10 @@ function ProductDetail({ id }: { id: string | undefined }) {
             </div>
 
             {family && (
-              <div className="mt-space-6">
+              <div className="mt-space-5">
                 <p className="eyebrow text-dark/60">{t.product.size}</p>
-                <div className="mt-space-3 flex flex-wrap gap-space-2">
+                {/* Size switcher: wraps and scrolls if container is narrow */}
+                <div className="mt-space-2 flex flex-wrap gap-2 overflow-x-auto no-scrollbar max-w-full pb-1">
                   {family.map((fid) => {
                     const p = getProduct(fid)!
                     const active = fid === product.id
@@ -105,14 +107,14 @@ function ProductDetail({ id }: { id: string | undefined }) {
                         to={`/product/${fid}`}
                         replace
                         aria-current={active ? 'page' : undefined}
-                        className={`inline-flex items-center gap-2 rounded border px-3 py-2 text-center font-body text-xs font-semibold transition ${
+                        className={`inline-flex min-h-[44px] items-center gap-2 rounded border px-3 py-2 text-center font-body text-xs font-semibold transition shrink-0 max-w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-amber ${
                           active ? 'border-dark bg-dark text-cream shadow-sm' : 'border-dark/20 text-dark hover:border-dark/50 hover:bg-pale-amber/60'
                         }`}
                       >
                         <span className="h-6 w-6 shrink-0 overflow-hidden rounded bg-cream flex items-center justify-center">
                           <ProductImage product={p} compact />
                         </span>
-                        <span>{p.sizeLabel}</span>
+                        <span className="truncate">{p.sizeLabel}</span>
                       </Link>
                     )
                   })}
@@ -120,18 +122,18 @@ function ProductDetail({ id }: { id: string | undefined }) {
               </div>
             )}
 
-            <p className="mt-space-6 max-w-prose font-body text-[0.95rem] leading-[1.8] text-dark/80">
+            <p className="mt-space-5 max-w-prose font-body text-[0.95rem] leading-[1.8] text-dark/80 break-words">
               {productDescription(product, lang)}
             </p>
 
-            {/* Quantity + add (desktop/tablet) */}
+            {/* Desktop / tablet Quantity + add */}
             <div className="mt-space-6 hidden items-center gap-space-4 md:flex">
               <QuantityPicker value={qty} onChange={setQty} />
               <button
                 type="button"
                 onClick={handleAdd}
                 disabled={!inStock}
-                className="btn-amber flex-1 disabled:opacity-50 disabled:pointer-events-none"
+                className="btn-amber flex-1 min-h-[44px] disabled:opacity-50 disabled:pointer-events-none"
               >
                 {!inStock ? t.product.outOfStock : added ? t.product.added : t.product.addToCart}
               </button>
@@ -142,49 +144,50 @@ function ProductDetail({ id }: { id: string | undefined }) {
               </Link>
             )}
 
-            {/* Quantity (mobile) */}
-            <div className="mt-space-6 flex items-center justify-between md:hidden">
-              <span className="eyebrow text-dark/60">{t.product.quantity}</span>
-              <QuantityPicker value={qty} onChange={setQty} />
-            </div>
-
-            <div className="mt-space-7 border-t border-pale-amber pt-space-6">
-              <h2 className="font-heading text-2xl font-medium text-dark">{t.product.factsTitle}</h2>
-              <dl className="mt-space-4 grid gap-space-4 sm:grid-cols-2">
+            {/* Facts Section */}
+            <div className="mt-space-6 border-t border-pale-amber pt-space-5">
+              <h2 className="font-heading text-xl sm:text-2xl font-medium text-dark">{t.product.factsTitle}</h2>
+              <dl className="mt-space-3 grid gap-space-3 sm:grid-cols-2">
                 {facts.map(({ icon: Icon, label, value }) => (
-                  <div key={label} className="flex gap-space-3">
+                  <div key={label} className="flex gap-space-3 min-w-0">
                     <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pale-amber/70">
                       <Icon size={15} strokeWidth={1.8} className="text-amber-deep" />
                     </span>
-                    <div>
+                    <div className="min-w-0">
                       <dt className="font-body text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-dark/60">{label}</dt>
-                      <dd className="mt-0.5 font-body text-sm leading-relaxed text-dark">{value}</dd>
+                      <dd className="mt-0.5 font-body text-sm leading-relaxed text-dark break-words">{value}</dd>
                     </div>
                   </div>
                 ))}
               </dl>
             </div>
+
+            {/* Mobile Quantity selector */}
+            <div className="mt-space-6 flex items-center justify-between border-t border-pale-amber pt-space-4 md:hidden">
+              <span className="eyebrow text-dark/60">{t.product.quantity}</span>
+              <QuantityPicker value={qty} onChange={setQty} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Sticky mobile add-to-cart bar */}
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-cream/10 bg-dark/95 px-space-4 py-space-3 backdrop-blur md:hidden">
-        <div className="flex items-center gap-space-3">
+      {/* Sticky mobile add-to-cart bar with safe-area padding */}
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-cream/10 bg-dark/95 px-space-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] backdrop-blur md:hidden shadow-lift">
+        <div className="flex items-center gap-space-3 max-w-md mx-auto">
           <div className="min-w-0 flex-1">
             <p className="truncate font-heading text-base text-cream">{name}</p>
             <p className="font-body text-sm font-semibold text-amber">{money(product.priceUSD * qty)}</p>
           </div>
           {!inStock ? (
-            <button type="button" disabled className="btn-amber px-space-5 opacity-50 pointer-events-none">
+            <button type="button" disabled className="btn-amber min-h-[44px] px-space-5 opacity-50 pointer-events-none">
               {t.product.outOfStock}
             </button>
           ) : added ? (
-            <Link to="/cart" className="btn-amber px-space-5">
+            <Link to="/cart" className="btn-amber min-h-[44px] px-space-5">
               {t.product.viewCart}
             </Link>
           ) : (
-            <button type="button" onClick={handleAdd} className="btn-amber px-space-5">
+            <button type="button" onClick={handleAdd} className="btn-amber min-h-[44px] px-space-5">
               {t.product.addToCart}
             </button>
           )}

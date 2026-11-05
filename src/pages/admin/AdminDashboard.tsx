@@ -51,8 +51,8 @@ export function AdminDashboard() {
         )}
       </div>
 
-      {/* STAT CARDS (consistent 8px scale) */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {/* STAT CARDS (1 per row below 360px, 2 per row above 360px, 4 on desktop) */}
+      <div className="grid grid-cols-1 min-[360px]:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Total Orders */}
         <div className="rounded-[8px] bg-white/70 p-4 sm:p-5 shadow-soft ring-1 ring-dark/5">
           <div className="flex items-center justify-between text-dark/60">
@@ -61,7 +61,7 @@ export function AdminDashboard() {
               <ShoppingBag size={18} strokeWidth={1.75} />
             </span>
           </div>
-          <p className="mt-3 font-heading text-3xl sm:text-4xl font-semibold text-dark">{totalOrders}</p>
+          <p className="mt-3 font-heading text-2xl sm:text-3xl md:text-4xl font-semibold text-dark break-all">{totalOrders}</p>
         </div>
 
         {/* Total Revenue */}
@@ -72,7 +72,7 @@ export function AdminDashboard() {
               <Banknote size={18} strokeWidth={1.75} />
             </span>
           </div>
-          <p className="mt-3 font-heading text-3xl sm:text-4xl font-semibold text-dark">{money(totalRevenue)}</p>
+          <p className="mt-3 font-heading text-2xl sm:text-3xl md:text-4xl font-semibold text-dark break-all">{money(totalRevenue)}</p>
         </div>
 
         {/* Pending Orders */}
@@ -83,7 +83,7 @@ export function AdminDashboard() {
               <Clock size={18} strokeWidth={1.75} />
             </span>
           </div>
-          <p className="mt-3 font-heading text-3xl sm:text-4xl font-semibold text-dark">{pendingCount}</p>
+          <p className="mt-3 font-heading text-2xl sm:text-3xl md:text-4xl font-semibold text-dark break-all">{pendingCount}</p>
         </div>
 
         {/* Delivered Orders */}
@@ -94,7 +94,7 @@ export function AdminDashboard() {
               <CheckCircle2 size={18} strokeWidth={1.75} />
             </span>
           </div>
-          <p className="mt-3 font-heading text-3xl sm:text-4xl font-semibold text-dark">{deliveredCount}</p>
+          <p className="mt-3 font-heading text-2xl sm:text-3xl md:text-4xl font-semibold text-dark break-all">{deliveredCount}</p>
         </div>
       </div>
 

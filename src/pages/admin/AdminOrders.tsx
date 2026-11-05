@@ -185,15 +185,15 @@ export function AdminOrders() {
                     <StatusBadge status={order.status} />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>
+                  <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 text-xs">
+                    <div className="min-w-0">
                       <p className="text-dark/50 text-[0.68rem] uppercase tracking-wider">{t.admin.orders.customer}</p>
-                      <p className="font-medium text-dark">{order.customer.name}</p>
+                      <p className="font-medium text-dark break-words">{order.customer.name}</p>
                       <p className="text-dark/60 text-[0.7rem]">{order.customer.phone}</p>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-dark/50 text-[0.68rem] uppercase tracking-wider">{t.admin.orders.city} & {t.admin.orders.payment}</p>
-                      <p className="font-medium text-dark">{order.address.city}</p>
+                      <p className="font-medium text-dark break-words">{order.address.city}</p>
                       <p className="text-dark/60 text-[0.7rem]">{t.checkout.methods[order.payment]}</p>
                     </div>
                   </div>

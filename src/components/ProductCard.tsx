@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Product } from '../data/products'
 import { useLang } from '../i18n/useLang'
 import { money, productName } from '../lib/format'
 import { useStock } from '../lib/stock'
+import { useCart } from '../context/cart'
 import { ProductImage } from './ProductImage'
 
 export function ProductBadge({ product, className = '', isOutOfStock = false }: { product: Product; className?: string; isOutOfStock?: boolean }) {
@@ -36,28 +38,40 @@ export function ProductBadge({ product, className = '', isOutOfStock = false }: 
 export function ProductCard({ product }: { product: Product }) {
   const { lang, t } = useLang()
   const { isInStock } = useStock()
+  const { add } = useCart()
+  const [added, setAdded] = useState(false)
   const inStock = isInStock(product.id)
   const name = productName(product, lang)
 
+  const handleAdd = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!inStock) return
+    add(product.id, 1)
+    setAdded(true)
+    setTimeout(() => setAdded(false), 1600)
+  }
+
   return (
-    <Link
-      to={`/product/${product.id}`}
-      className={`group flex h-full flex-col overflow-hidden rounded-lg bg-cream shadow-soft ring-1 ring-dark/5 transition duration-300 hover:-translate-y-1 hover:shadow-lift focus:outline-none focus-visible:ring-2 focus-visible:ring-amber ${
+    <div
+      className={`group flex h-full flex-col overflow-hidden rounded-lg bg-cream shadow-soft ring-1 ring-dark/5 transition duration-300 hover:-translate-y-1 hover:shadow-lift ${
         !inStock ? 'opacity-90' : ''
       }`}
     >
-      <div className="relative aspect-square overflow-hidden bg-cream">
+      <Link to={`/product/${product.id}`} className="relative aspect-square overflow-hidden bg-cream block focus:outline-none focus-visible:ring-2 focus-visible:ring-amber">
         <div className={`h-full w-full transition duration-500 group-hover:scale-[1.03] ${!inStock ? 'grayscale-[30%]' : ''}`}>
           <ProductImage product={product} />
         </div>
-        <ProductBadge product={product} isOutOfStock={!inStock} className="absolute left-space-2 top-space-2 sm:left-space-3 sm:top-space-3" />
-      </div>
-      <div className="flex flex-1 flex-col gap-space-1 p-space-3 sm:p-space-4">
-        <h3 className="font-heading text-lg font-semibold leading-snug text-dark sm:text-xl">{name}</h3>
-        <p className="font-body text-[0.65rem] font-medium uppercase tracking-[0.16em] text-dark/55 sm:text-xs">
+        <ProductBadge product={product} isOutOfStock={!inStock} className="absolute left-2.5 top-2.5 sm:left-3 sm:top-3 z-10" />
+      </Link>
+      <div className="flex flex-1 flex-col p-3.5 sm:p-4">
+        <Link to={`/product/${product.id}`} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-amber rounded">
+          <h3 className="font-heading text-lg font-semibold leading-snug text-dark sm:text-xl group-hover:text-amber-deep transition-colors line-clamp-2">{name}</h3>
+        </Link>
+        <p className="font-body text-[0.68rem] font-medium uppercase tracking-[0.16em] text-dark/55 mt-1 sm:text-xs">
           {product.sizeLabel || t.packs[product.pack]}
         </p>
-        <div className="mt-auto flex items-center justify-between pt-space-2">
+        <div className="mt-auto flex items-center justify-between pt-3 pb-2.5">
           <p className="font-body text-base font-semibold text-dark">{money(product.priceUSD)}</p>
           {!inStock && (
             <span className="font-body text-[0.65rem] font-bold uppercase tracking-wider text-dark/60">
@@ -65,7 +79,16 @@ export function ProductCard({ product }: { product: Product }) {
             </span>
           )}
         </div>
+        {/* Full-width "Add to cart" button */}
+        <button
+          type="button"
+          onClick={handleAdd}
+          disabled={!inStock}
+          className="btn-amber w-full min-h-[44px] text-xs py-2.5 px-3 disabled:opacity-50 disabled:pointer-events-none"
+        >
+          {!inStock ? t.product.outOfStock : added ? t.product.added : t.product.addToCart}
+        </button>
       </div>
-    </Link>
+    </div>
   )
 }

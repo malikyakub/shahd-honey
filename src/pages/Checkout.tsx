@@ -127,11 +127,11 @@ export function Checkout() {
   }
 
   return (
-    <section className="container-site py-space-7 sm:py-space-8">
-      <h1 className="font-heading text-5xl font-medium text-dark">{t.checkout.title}</h1>
+    <section className="container-site py-space-5 sm:py-space-8">
+      <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-medium text-dark">{t.checkout.title}</h1>
 
-      <form noValidate onSubmit={onSubmit} className="mt-space-6 grid gap-space-6 lg:grid-cols-[1fr_24rem] lg:gap-space-7">
-        <div className="space-y-space-6">
+      <form noValidate onSubmit={onSubmit} className="mt-space-5 sm:mt-space-6 grid gap-space-6 lg:grid-cols-[1fr_24rem] lg:gap-space-7">
+        <div className="space-y-space-6 min-w-0">
           {submitted && hasErrors && (
             <p role="alert" className="flex items-center gap-space-2 rounded border border-red-800/30 bg-red-50 px-space-4 py-space-3 font-body text-sm text-red-900">
               <AlertCircle size={16} /> {t.checkout.errors.summary}
@@ -185,13 +185,13 @@ export function Checkout() {
           </Fieldset>
 
           <fieldset>
-            <legend className="font-heading text-2xl font-medium text-dark">{t.checkout.payment}</legend>
+            <legend className="font-heading text-xl sm:text-2xl font-medium text-dark">{t.checkout.payment}</legend>
             <div
               role="radiogroup"
               aria-invalid={shown.payment ? true : undefined}
               aria-describedby={shown.payment ? 'payment-error' : undefined}
               tabIndex={shown.payment ? -1 : undefined}
-              className="mt-space-4 grid grid-cols-2 gap-space-3 focus:outline-none"
+              className="mt-space-4 grid grid-cols-1 xs:grid-cols-2 gap-space-3 focus:outline-none"
             >
               {PAYMENTS.map((m) => {
                 const active = form.payment === m

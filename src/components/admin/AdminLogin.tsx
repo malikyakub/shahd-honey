@@ -68,7 +68,7 @@ export function AdminLogin({ onLogin }: { onLogin: () => void }) {
                   setPassword(e.target.value)
                   if (error) setError(false)
                 }}
-                className="h-11 w-full rounded-[8px] border border-cream/20 bg-cream/10 px-4 font-body text-sm text-cream placeholder:text-cream/40 transition focus:border-amber focus:bg-cream/15 focus:outline-none focus:ring-1 focus:ring-amber"
+                className="h-11 w-full rounded-[8px] border border-cream/20 bg-cream/10 px-4 font-body text-base text-cream placeholder:text-cream/40 transition focus:border-amber focus:bg-cream/15 focus:outline-none focus:ring-1 focus:ring-amber"
               />
             </div>
 
